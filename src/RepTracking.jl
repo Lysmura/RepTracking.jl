@@ -6,10 +6,9 @@ using Statistics
 using Plots
 using StatsPlots
 using Chain
+using StatsBase
 
 include("data.jl")
-d = data_student_pres()
 include("fig1.jl")
-figure1()
-
+include("fig2.jl")
 end
