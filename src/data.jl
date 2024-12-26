@@ -39,14 +39,19 @@ function data_student_test()
         #Create variables
     transform!(student_test, [:etpteacher, :lowstream] => ByRow(*) => :etpteacher_tracking_lowstream)
     transform!(student_test, [:sbm,:tracking,:lowstream] => ByRow(*) =>:sbm_tracking_lowstream)
+    transform!(student_test, [:bottomhalf, :tracking ] => ByRow(*) => :bottomhalf_tracking,
+                             [:tophalf, :tracking ] => ByRow(*) => :tophalf_tracking,
+                             [:etpteacher, :tracking ] => ByRow(*) => :etpteacher_tracking)
         #Reduce number of missing on age at the test
     get_agetest(agetest, r2_age) = ifelse(ismissing(agetest) , r2_age-1, agetest)
     transform!(student_test, [:agetest, :r2_age] => ByRow(get_agetest) => :agetest)
         #Standardize test score
-        #First define helper function to standardize while keeping missing in place
+        #First define helper function to standardize while keeping missing in place. 
+        #We standardize only on values of non tracked individuals
     function standardize_keep_missing(col)
-        mean_col = mean(skipmissing(col))
-        sd_col = std(skipmissing(col))
+        col_notracking = col[findall(a -> a==0,d.tracking)]
+        mean_col = mean(skipmissing(col_notracking))
+        sd_col = std(skipmissing(col_notracking))
         standardized_col = []
             for val in col 
                 push!(standardized_col, (val - mean_col)/sd_col)
