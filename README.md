@@ -6,7 +6,8 @@
 
 This package provide a replication of the paper Peer Effects, Teacher Incentives, And Impact Of Tracking : Evidence From a Randomized Evaluation In Kenya by E. Duflo, P. Dupas, and M. Kremer in 2008. The original code is provided in Stata, here it is adapted under julia in the context of the 2024/2025 Computational Economics of Sciences Po by F. Oswald. 
 
-The original paper can be found [here](https://www.nber.org/system/files/working_papers/w14475/w14475.pdf)
+The original paper can be found [here](https://www.nber.org/system/files/working_papers/w14475/w14475.pdf).
+Ressource on the course for which this replication was made can be found [here](https://floswald.github.io/NumericalMethods/).
 
 ## Table of Contents
 
@@ -53,3 +54,9 @@ This are the different function exported by the package `ReepTracking.jl` :
 * `figure2()` reproduce the two way scatter plot of figure 2 showing the evolution of the average initial attaintment of classmated given the baseline quantile.
 * `table2_panelA()` reproduce the set of robust regressions on the effect of tratment in the short run (18 months after program).
 
+Those functions are implemented to facilitate the reproduction and aren't exported by the package. To call them add the prefix `RepTracking.` before calling them.
+* `data_student_test()`, `data_student_pres()`, `data_teacher_test()` import the dataset from the format .dta and apply the transformation required to replicate the results.
+
+## Limitations of the replication
+Some part of the author work couldn't be replicated due to the lack of libraries on Julia or the time constraint :
+* On table 2 both panel, the t-test for the equality between coefficients of the bottom and quarter treatment effect couldn't be reproduced due to the lack of compatibility between the `Tests.jl` package and `FixedEffectModel.jl`. It is however possible to implement a function to manually compute it to complete our work using the formula of the Wald test : $\frac{\beta_1 - \beta_2}{V(\beta_1) + V[\beta_2] - 2Cov(\beta_1, \beta_2)}$, and retrieving it's quantile with the normal law quantile function.

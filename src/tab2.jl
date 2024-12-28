@@ -16,23 +16,20 @@ function table2_panelA()
     d = data_student_test()
 
     #Aplly required transformation for indicator of percentile and tracking 
-    #squared and cubed percentile, and transforming score column in float
+    #squared and cubed percentile
     transform!(d, [:tracking, :bottomquarter] => ByRow(*) => :bottomquarter_tracking,
                 [:tracking, :secondquarter] => ByRow(*) => :secondquarter_tracking,
                 [:tracking, :thirdquarter] => ByRow(*) => :thirdquarter_tracking,
                 [:tracking, :topquarter] => ByRow(*) => :topquarter_tracking,
                 [:tracking, :girl] => ByRow(*) => :girl_tracking,
                 :percentile => ByRow(a -> a ^ 2 ) => :percentilesq,
-                :percentile => ByRow(a -> a ^ 3 ) => :percentilecub,
-                :totalscore_standardize_keep_missing => ByRow(a -> a*1.) => :stdR_totalscore,
-                :mathscoreraw_standardize_keep_missing => ByRow(a -> a*1.) => :stdR_mathscore,
-                :litscore_standardize_keep_missing => ByRow(a -> a*1.) => :stdR_litscore ) 
+                :percentile => ByRow(a -> a ^ 3 ) => :percentilecub) 
 
     #regress the 4 specifications of the model on the total standardize score for total, maths, and litscore
     #We use the programmatic construction of formula to allow the usage of a for loop
     fits = []
     coef_sum = []
-    for dep_var in [:stdR_totalscore, :stdR_mathscore, :stdR_litscore]
+    for dep_var in [:totalscore_function, :mathscoreraw_function, :litscore_function]
 
         fit1 = reg(d, term(dep_var) ~ term(:tracking) ,
             Vcov.cluster(:schoolid))
@@ -70,9 +67,9 @@ function table2_panelA()
             labels = Dict(
                 "tracking" => "Tracking School",
                 "etpteacher" => "Assigned to Contract Teacher",
-                "stdR_totalscore" => "Total Score",
-                "stdR_mathscore" => "Maths Score",
-                "stdR_litscore" => "Literacy Score",
+                "totalscore_function" => "Total Score",
+                "mathscoreraw_function" => "Maths Score",
+                "litscore_function" => "Literacy Score",
                 "bottomhalf_tracking" => "In bottom half of initial distribution x tracking",
                 "bottomquarter_tracking" => "In bottom quarter x tracking",
                 "secondquarter_tracking" => "In second to bottom quarter x tracking",

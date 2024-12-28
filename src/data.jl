@@ -1,4 +1,32 @@
 """
+    standardize_keep_missing(col)
+
+Helper function
+Return standardized value of col for the individuals with tracking = 0 i.e. the values of col are substracted by the mean of those with tracking 0 and dividided by their standard deviation.
+The final transformation ensure that the return vector is float64
+This form was required to keep the missing values in dataset
+
+# Inputs
+ - col : Vector{Float64} : values to standardize
+
+# Examples
+```julia-repl
+julia> standardize_keep_missing(col ; tracking = d.tracking)
+> Vector{Float64}
+```
+"""
+function standardize_keep_missing(col; tracking = d.tracking)
+    col_notracking = col[findall(a -> a==0,tracking)]
+    mean_col = mean(skipmissing(col_notracking))
+    sd_col = std(skipmissing(col_notracking))
+    standardized_col = []
+        for val in col 
+            push!(standardized_col, (val - mean_col)/sd_col)
+        end
+    return standardized_col .* 1.
+end
+
+"""
     data_student_pres()
 
 Import data student_pres of Duflo, & al (2008) Import data student_pres of Duflo, & al (2008).
@@ -42,27 +70,15 @@ function data_student_test()
     transform!(student_test, [:bottomhalf, :tracking ] => ByRow(*) => :bottomhalf_tracking,
                              [:tophalf, :tracking ] => ByRow(*) => :tophalf_tracking,
                              [:etpteacher, :tracking ] => ByRow(*) => :etpteacher_tracking)
+
         #Reduce number of missing on age at the test
     get_agetest(agetest, r2_age) = ifelse(ismissing(agetest) , r2_age-1, agetest)
     transform!(student_test, [:agetest, :r2_age] => ByRow(get_agetest) => :agetest)
+
         #Standardize test score
-        #First define helper function to standardize while keeping missing in place. 
-        #We standardize only on values of non tracked individuals
-    function standardize_keep_missing(col)
-        col_notracking = col[findall(a -> a==0,d.tracking)]
-        mean_col = mean(skipmissing(col_notracking))
-        sd_col = std(skipmissing(col_notracking))
-        standardized_col = []
-            for val in col 
-                push!(standardized_col, (val - mean_col)/sd_col)
-            end
-        return standardized_col
-    end
-    
-        #Apply the transformation on the score columns
     transform!(student_test,
         [:litscore, :mathscoreraw, :totalscore, :letterscore, :wordscore, :sentscore, :spellscore, :additions_score, :substractions_score, :multiplications_score] 
-        .=> standardize_keep_missing)
+        .=> x -> standardize_keep_missing(x; d.tracking))
         
     return student_test
 end
