@@ -9,6 +9,7 @@ using Chain
 using StatsBase
 using FixedEffectModels
 using RegressionTables
+using FileIO
 
 include("data.jl")
 include("fig1.jl")
