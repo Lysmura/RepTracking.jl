@@ -97,7 +97,8 @@ function table2()
         extralines = [
             ["Total effects on bottom half and bottom quarter", ""=> 2:13],
             ["Coeff bottom half + tracking ", "","",coef_sum[1], "", "","",coef_sum[3], "", "","",coef_sum[5], ""],
-            ["Coeff bottom quarter + tracking ", "", "", "",coef_sum[2], "", "", "",coef_sum[4],"", "", "",coef_sum[6]]]
+            ["Coeff bottom quarter + tracking ", "", "", "",coef_sum[2], "", "", "",coef_sum[4],"", "", "",coef_sum[6]]],
+            file = "output/table2_panelB.txt"
             )
 
     return tabA, tabB

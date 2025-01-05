@@ -15,7 +15,7 @@ function figure2()
     d.stream_meanpercentile
     gd = groupby(d, [:quantile5p, :tracking])
     mean_gd = combine(gd, :stream_meanpercentile => mean)
-    @df mean_gd scatter(:quantile5p, :stream_meanpercentile_mean, title="My DataFrame Scatter Plot!", group = :tracking, 
+    @df mean_gd scatter(:quantile5p, :stream_meanpercentile_mean, group = :tracking, 
         ylabel = "Mean Standardized Baseline Score of Classmates",
         xlabel = "Own Initial Attainment:  Baseline 20-Quantile",
         labels = ["Non-tracking schools" "Tracking schools"])
