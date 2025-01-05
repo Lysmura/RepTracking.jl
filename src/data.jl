@@ -77,7 +77,7 @@ function data_student_test()
 
         #Standardize test score
     transform!(student_test,
-        [:litscore, :mathscoreraw, :totalscore, :letterscore, :wordscore, :sentscore, :spellscore, :additions_score, :substractions_score, :multiplications_score] 
+        [:litscore, :mathscoreraw, :totalscore, :letterscore, :wordscore, :sentscore, :spellscore, :additions_score, :substractions_score, :multiplications_score, :r2_totalscore, :r2_mathscoreraw, :r2_litscore] 
         .=> x -> standardize_keep_missing(x; d.tracking))
         
     return student_test
