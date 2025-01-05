@@ -77,7 +77,8 @@ function table2()
             extralines = [
                 ["Total effects on bottom half and bottom quarter", ""=> 2:13],
                 ["Coeff bottom half + tracking ", "","",coef_sum[1], "", "","",coef_sum[3], "", "","",coef_sum[5], ""],
-                ["Coeff bottom quarter + tracking ", "", "", "",coef_sum[2], "", "", "",coef_sum[4],"", "", "",coef_sum[6]]]
+                ["Coeff bottom quarter + tracking ", "", "", "",coef_sum[2], "", "", "",coef_sum[4],"", "", "",coef_sum[6]]],
+            file = "output/table2_panelA.txt"
                 )
     #Same for long term panel
     tabB = regtable(r2_t1, r2_t2, r2_t3, r2_t4, r2_m1, r2_m2, r2_m3, r2_m4, r2_l1, r2_l2, r2_l3, r2_l4,

@@ -27,7 +27,8 @@ export figure1,
     figure2, 
     figure3,
     table2,
-    table3
+    table3,
+    run
 
 ##############################################################################
 ##
@@ -39,5 +40,7 @@ include("fig1.jl")
 include("fig2.jl")
 include("tab2.jl")
 include("fig3.jl")
+include("run.jl")
+    run()
 
 end

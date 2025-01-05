@@ -12,4 +12,6 @@ function run()
 
     fig3 = figure3()
     savefig(fig3, "output/figure3.png")
+
+    table2()
 end
