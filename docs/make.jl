@@ -1,5 +1,5 @@
-using RepTracking
 using Documenter
+using .RepTracking
 
 DocMeta.setdocmeta!(RepTracking, :DocTestSetup, :(using RepTracking); recursive=true)
 

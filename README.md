@@ -17,13 +17,20 @@ Authors : Alexandra ANGHEL, Nayanika Mitash, Elysabeth Triffe
   - [Installation](#installation)
   - [Demonstration of the reproduction](#Demonstration-of-the-reproduction)
   - [Functions list](#functions-list)
+  - [Limitations of the replication](#Limitations-of-the-replication)
 
 ## Installation
 
-To install the package, use this prompt in the console : 
+To initialise the package, use this prompt in the console : 
 
 ```julia
-|||||||||||||||||||||| TO ADD
+git clone https://github.com/Lysmura/RepTracking.jl.git
+
+]
+
+activate .
+
+instantiate
 ```
 
 Then add this command :
@@ -35,15 +42,11 @@ using RepTracking
 
 The following show an exemple call of a function to reproduce the Figure 1, 2, and 3 along with table 2, 3, and 4:
 ```julia
-using .RepTracking
-
 run()
 ```
 
 And now to reproduce the figure 2 of the paper :
 ```julia
-using .RepTracking
-
 figure2()
 ```
 
