@@ -1,5 +1,3 @@
-include("data.jl")
-
 """
     figure1()
 

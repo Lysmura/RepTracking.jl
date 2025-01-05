@@ -1,5 +1,3 @@
-include("data.jl")
-
 """
     figure3()
 
@@ -116,38 +114,32 @@ function figure3()
    interval_YN1, YN1 = filter_and_extract(collapsed_df, :YN1, :interval)
    interval_YN0, YN0 = filter_and_extract(collapsed_df, :YN0, :interval)
 
-   # plot with valid data
-   plot()
+ # plot with valid data
+ fig3 = plot()
+ # Scatter plot for TotalT with yellow markers
+ scatter!(fig3, interval, TotalT, label="Local Average, Tracking Schools", 
+       marker=:circle, color=:yellow, markerstrokecolor=:yellow)
 
-   # Scatter plot for TotalT with yellow markers
-   scatter!(interval, TotalT, label="Local Average, Tracking Schools", 
-         marker=:circle, color=:yellow, markerstrokecolor=:yellow)
+ # Scatter plot for TotalN with brown markers
+ scatter!(fig3, interval, TotalN, label="Local Average, Non-Tracking Schools", 
+       marker=:circle, color=:brown, markerstrokecolor=:brown)
 
-   # Scatter plot for TotalN with brown markers
-   scatter!(interval, TotalN, label="Local Average, Non-Tracking Schools", 
-         marker=:circle, color=:brown, markerstrokecolor=:brown)
+ # Line plot for YT1 and YT0 with blue solid lines
+ plot!(fig3, interval_YT1, YT1, label="Polynomial Fit, Tracking", color=:blue, linestyle=:solid)
+ plot!(fig3, interval_YT0, YT0, label="", color=:blue, linestyle=:solid)  # Empty label to group with the previous line
 
-   # Line plot for YT1 and YT0 with blue solid lines
-   plot!(interval_YT1, YT1, label="Polynomial Fit, Tracking", color=:blue, linestyle=:solid)
-   plot!(interval_YT0, YT0, label="", color=:blue, linestyle=:solid)  # Empty label to group with the previous line
+ # Line plot for YN1 and YN0 with red dashed lines
+ plot!(fig3, interval_YN1, YN1, label="Polynomial Fit, Non-Tracking", color=:red, linestyle=:dash)
+ plot!(fig3, interval_YN0, YN0, label="", color=:red, linestyle=:dash)  # Empty label to group with the previous line
 
-   # Line plot for YN1 and YN0 with red dashed lines
-   plot!(interval_YN1, YN1, label="Polynomial Fit, Non-Tracking", color=:red, linestyle=:dash)
-   plot!(interval_YN0, YN0, label="", color=:red, linestyle=:dash)  # Empty label to group with the previous line
+ # Add vertical line at x = 50
+ vline!(fig3, [50], label="", color=:red, linestyle=:dash)
 
-   # Add vertical line at x = 50
-   vline!([50], label="", color=:red, linestyle=:dash)
-
-   # Customize the plot
-   xlabel!("Initial Attainment Percentile")
-   ylabel!("Endline Test Scores")
-   title!("Effect of Tracking by Initial Attainment")
-
-   return figure3
+ # Customize the plot
+ xlabel!(fig3, "Initial Attainment Percentile")
+ ylabel!(fig3, "Endline Test Scores")
+ title!(fig3, "Effect of Tracking by Initial Attainment")
+ 
+ return fig3
 
 end
-
-
-figure3()
-
-

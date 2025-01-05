@@ -12,7 +12,7 @@ teacher_test = RepTracking.data_teacher_pres()
     # Notice that the number of columns in the test include the expected added columns
     # by the transformation of the function.
     @test size(student_pres) == (97100, 10)
-    @test size(student_test) == (7022, 121)
+    @test size(student_test) == (7022, 124)
     @test size(teacher_test) == (2484, 12)
     # Test if data imported as any empty col 
     @test isempty(empty_cols(student_pres)) == true

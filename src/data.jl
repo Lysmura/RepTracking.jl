@@ -39,7 +39,7 @@ julia> data_student_pres()
 """
 function data_student_pres()
     #Load data
-    d = load("data/student_pres_data.dta") |> DataFrame
+    d = load("RepTracking.jl/data/student_pres_data.dta") |> DataFrame
     student_pres = copy(d)
 
     #Clean and transform data
@@ -60,7 +60,7 @@ julia> data_student_test()
 """
 function data_student_test()
     #Load data
-    d = load("data/student_test_data.dta") |> DataFrame
+    d = load("RepTracking.jl/data/student_test_data.dta") |> DataFrame
     student_test = copy(d)
 
     #Clean and transform data
@@ -96,7 +96,7 @@ julia> data_teacher_pres()
 """
 function data_teacher_pres()
     #Load data
-    d = load("data/teacher_pres_data.dta") |> DataFrame
+    d = load("RepTracking.jl/data/teacher_pres_data.dta") |> DataFrame
     teacher_pres = copy(d)
 
     #Clean and transform data
