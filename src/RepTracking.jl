@@ -24,7 +24,10 @@ using Distributions
 ## Exported methods 
 ##
 ##############################################################################
-export figure1, 
+export data_student_pres,
+    data_student_test,
+    data_teacher_pres,
+    figure1, 
     figure2, 
     figure3,
     table2,
