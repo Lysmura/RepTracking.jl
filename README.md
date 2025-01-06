@@ -35,9 +35,9 @@ Pkg.instantiate()
 
 ## Demonstration of the reproduction
 
-The following show an exemple call of a function to reproduce the Figure 1, 2, and 3 along with table 2, 3, and 4. All outputs are saved in the output folder.
+The following show an exemple call of a function to reproduce the Figure 1, 2, and 3 along with table 2, 3, and 6. All outputs are saved in the output folder.
 ```julia
-run()
+RepTracking.run()
 ```
 
 And now to reproduce the figure 2 of the paper :
@@ -48,15 +48,15 @@ figure2()
 Notice that the functions to import data aren't exported by the package, to call them add the prefix 'RepTracking.' before the data function (list later in the README).
 
 ## Functions list
-This are the different function exported by the package `ReepTracking.jl`, all outputs of those function can be saved in the output folder using  `run()`:
+This are the different function exported by the package `RepTracking.jl`, all outputs of those function can be saved in the output folder using  `run()`:
 * `figure1()` : two histograms of figure 1 on the density per groups (tracked and non tracked) for the standardized total score with mean and standard deviation of non tracked group.
 * `figure2()` : two way scatter plot of figure 2 showing the evolution of the average initial attaintment of classmated given the baseline quantile.
 * `figure3()` : fuzzy regression design with polynomial model on results given initial attainment before treatment.
 * `table2()` : set of robust regressions on the effect of tratment in the short and long run (18 months in program, and 1 year after program ended).
-* `tabl3()` : table on heterogeinity of effect across population treated, and test if the differences are significant on short and long run.
+* `table3()` : table on heterogeinity of effect across population treated, and test if the differences are significant on short and long run.
+* `table6()` : teacher and presence effect on outcome. Table 6 was added to replace table1 that we couldn't reproduce.
 
-
-Those functions are implemented to facilitate the reproduction and aren't exported by the package, but were created to either import and clean data, or to serve as helpers to build replication content :
+Those functions are implemented to facilitate the reproduction i.e. either import and clean data, or to serve as helpers to build replication content :
 * `data_student_test()`, `data_student_pres()`, `data_teacher_test()` import the dataset from the format .dta and apply the transformation required to replicate the results.
 * `w_test()` introduces a Wald test and compute the p-value of the Hypothesise : H0 : $\beta_1$ = $\beta_2$ in a regression model, such that the test score is $\frac{\beta_1 - \beta_2}{V(\beta_1) + V[\beta_2] - 2Cov(\beta_1, \beta_2)}$, following a Fisher law of 1 and N-k-1 degrees of freedom i.e. a Student law of N-k-1 degrees of freedom.
 * `standardize_keep_missing()` standardizes data using the mean and the standard deviation of the untracked school as the author did. Function implemented to compute the standardized value and keep the missing ones.

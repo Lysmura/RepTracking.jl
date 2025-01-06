@@ -9,7 +9,6 @@ julia> figure3()
 > 1 scatterplot and fitted polynomial function
 ```
 """
-
 function figure3()
     # Load the data
     d= data_student_test()

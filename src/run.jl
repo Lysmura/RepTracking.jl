@@ -16,6 +16,8 @@ function run()
     table2()
 
     table3()
+
+    table6()
     
     end_string = "The replication has been saved in the ouput folder."
 end

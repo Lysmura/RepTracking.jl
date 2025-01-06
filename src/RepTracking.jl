@@ -49,4 +49,6 @@ include("fig3.jl")
 include("tab3.jl")
 include("utils.jl")
 include("run.jl")
+include("tab6.jl")
+table6()
 end
