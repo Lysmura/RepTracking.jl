@@ -35,7 +35,7 @@ Pkg.instantiate()
 
 ## Demonstration of the reproduction
 
-The following show an exemple call of a function to reproduce the Figure 1, 2, and 3 along with table 2, 3, and 6. All outputs are saved in the output folder.
+The following show an example call of a function to reproduce the Figure 1, 2, and 3 along with table 2, 3, and 6. All outputs are saved in the output folder.
 ```julia
 RepTracking.run()
 ```
