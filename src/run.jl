@@ -14,4 +14,8 @@ function run()
     savefig(fig3, "output/figure3.png")
 
     table2()
+
+    table3()
+    
+    end_string = "The replication has been saved in the ouput folder."
 end

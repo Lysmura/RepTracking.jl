@@ -17,6 +17,7 @@ using RegressionTables
 using FileIO
 using JLD2
 using GLM
+using Distributions
 
 ##############################################################################
 ##
@@ -28,7 +29,9 @@ export figure1,
     figure3,
     table2,
     table3,
-    run
+    run,
+    w_test
+    
 
 ##############################################################################
 ##
@@ -40,7 +43,7 @@ include("fig1.jl")
 include("fig2.jl")
 include("tab2.jl")
 include("fig3.jl")
+include("tab3.jl")
+include("utils.jl")
 include("run.jl")
-    run()
-
 end

@@ -1,32 +1,4 @@
 """
-    standardize_keep_missing(col)
-
-Helper function
-Return standardized value of col for the individuals with tracking = 0 i.e. the values of col are substracted by the mean of those with tracking 0 and dividided by their standard deviation.
-The final transformation ensure that the return vector is float64
-This form was required to keep the missing values in dataset
-
-# Inputs
- - col : Vector{Float64} : values to standardize
-
-# Examples
-```julia-repl
-julia> standardize_keep_missing(col ; tracking = d.tracking)
-> Vector{Float64}
-```
-"""
-function standardize_keep_missing(col; tracking = d.tracking)
-    col_notracking = col[findall(a -> a==0,tracking)]
-    mean_col = mean(skipmissing(col_notracking))
-    sd_col = std(skipmissing(col_notracking))
-    standardized_col = []
-        for val in col 
-            push!(standardized_col, (val - mean_col)/sd_col)
-        end
-    return standardized_col .* 1.
-end
-
-"""
     data_student_pres()
 
 Import data student_pres of Duflo, & al (2008) Import data student_pres of Duflo, & al (2008).

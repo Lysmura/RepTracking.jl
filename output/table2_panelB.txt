@@ -25,5 +25,8 @@ Observations                                          5,489      5,002      5,00
 Total effects on bottom half and bottom quarter                                                                                                                                   
 Coeff bottom half + tracking                                                0.156                                        0.179                                     0.107          
 Coeff bottom quarter + tracking                                                        0.136                                         0.166                                   0.083
+p-value:                                                                                                                                                                          
+Total effect for bottom = 0                                                 0.086      0.217                             0.123       0.218                         0.108     0.291
+Top quarter = bottom quarter                                                           0.366                                         0.988                                   0.142
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

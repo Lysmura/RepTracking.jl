@@ -28,6 +28,7 @@ function table2()
     #We use the programmatic construction of formula to allow the usage of a for loop
     fits = []
     coef_sum = []
+    p_values = []
     for dep_var in [:totalscore_function, :mathscoreraw_function, :litscore_function, :r2_totalscore_function, :r2_mathscoreraw_function, :r2_litscore_function]
 
         fit1 = reg(d, term(dep_var) ~ term(:tracking) ,
@@ -44,12 +45,21 @@ function table2()
             term(:bottomquarter) + term(:secondquarter) + term(:topquarter) +
             term(:girl) + term(:percentile) + term(:percentilesq) + term(:agetest) + term(:etpteacher),
             Vcov.cluster(:schoolid))
+        
+        #Compute the p_value of total bottom effect = 0, the minus symbol are required as we estimate H0 : coef1 + coef2 = 0
+        push!(p_values, w_test(fit3.coef[2], fit3.vcov[2,2], -fit3.coef[3], fit3.vcov[3,3], -fit3.vcov[2,3], fit3.dof_residual))
 
         fit4 = reg(d, term(dep_var) ~ term(:tracking) + term(:bottomquarter_tracking) + term(:secondquarter_tracking) + 
             term(:topquarter_tracking) + term(:bottomhalf)  +
             term(:bottomquarter) + term(:secondquarter) + term(:topquarter) +
             term(:girl) + term(:percentile) + term(:percentilesq) + term(:agetest) + term(:etpteacher),
             Vcov.cluster(:schoolid))
+
+        #Compute the p_value of total bottom effect = 0, the minus symbol are required as we estimate H0 : coef1 + coef2 = 0
+        push!(p_values, w_test(fit4.coef[2], fit4.vcov[2,2], -fit4.coef[3], fit4.vcov[3,3], -fit4.vcov[2,3], fit4.dof_residual))
+
+        #Compute the p_value of top quarter = bottom quarter
+        push!(p_values, w_test(fit4.coef[3], fit4.vcov[3,3], fit4.coef[5], fit4.vcov[5,5], fit4.vcov[3,5], fit4.dof_residual))
 
         push!(coef_sum, coef(fit3)[2] + coef(fit3)[3],coef(fit4)[2]+ coef(fit4)[3])
         
@@ -75,9 +85,12 @@ function table2()
                 "topquarter_tracking" => "In top quarter x tracking"),
             regression_statistics = [Nobs => "Observations"],
             extralines = [
-                ["Total effects on bottom half and bottom quarter", ""=> 2:13],
+                ["Total effects on bottom half and bottom quarter:", ""=> 2:13],
                 ["Coeff bottom half + tracking ", "","",coef_sum[1], "", "","",coef_sum[3], "", "","",coef_sum[5], ""],
-                ["Coeff bottom quarter + tracking ", "", "", "",coef_sum[2], "", "", "",coef_sum[4],"", "", "",coef_sum[6]]],
+                ["Coeff bottom quarter + tracking ", "", "", "",coef_sum[2], "", "", "",coef_sum[4],"", "", "",coef_sum[6]],
+                ["p-value:", ""=> 2:13],
+                ["Total effect for bottom = 0 ", "", "", p_values[1], p_values[2],"", "", p_values[4], p_values[5],"","",p_values[7], p_values[8]],
+                ["Top quarter = bottom quarter ", "", "", "", p_values[3],"", "", "", p_values[6],"","","", p_values[9]]],
             file = "output/table2_panelA.txt"
                 )
     #Same for long term panel
@@ -98,7 +111,10 @@ function table2()
         extralines = [
             ["Total effects on bottom half and bottom quarter", ""=> 2:13],
             ["Coeff bottom half + tracking ", "","",coef_sum[1], "", "","",coef_sum[3], "", "","",coef_sum[5], ""],
-            ["Coeff bottom quarter + tracking ", "", "", "",coef_sum[2], "", "", "",coef_sum[4],"", "", "",coef_sum[6]]],
+            ["Coeff bottom quarter + tracking ", "", "", "",coef_sum[2], "", "", "",coef_sum[4],"", "", "",coef_sum[6]],
+            ["p-value:", ""=> 2:13],
+            ["Total effect for bottom = 0 ", "", "", p_values[10], p_values[11],"", "", p_values[13], p_values[14],"","",p_values[16], p_values[17]],
+            ["Top quarter = bottom quarter ", "", "", "", p_values[12],"", "", "", p_values[15],"","","", p_values[18]]],
             file = "output/table2_panelB.txt"
             )
 
